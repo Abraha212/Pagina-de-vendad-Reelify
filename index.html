@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reelify Pro — Edição de vídeo com IA</title>
+<meta name="description" content="Decupagem, legendas animadas, animações criadas sob medida, b-rolls, sons e música com IA. No app para Windows e Mac ou dentro do Adobe Premiere Pro.">
+<meta property="og:title" content="Reelify Pro — Edição de vídeo com IA">
+<meta property="og:description" content="Seu vídeo editado pela IA: decupagem, legendas, animações sob medida e b-roll. No app ou dentro do Premiere.">
+<meta property="og:image" content="assets/icon.png">
+<link rel="icon" href="assets/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0c0f; --bg2: #121419; --card: #16181d; --card2: #1c1f25; --line: #262930; --text: #f2f2f4; --muted: #9b9ea7;
+    --accent: #ffc93c; --accent2: #ff9f1c; --ink: #1a1400; --ok: #3ccf91;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) { --bg: #fbfaf7; --bg2: #f3f1ec; --card: #ffffff; --card2: #f6f4ef; --line: #e7e3d9; --text: #15161a; --muted: #686b73; --accent: #f0b000; --accent2: #e08600; }
+  }
+  :root[data-theme="light"] { --bg: #fbfaf7; --bg2: #f3f1ec; --card: #ffffff; --card2: #f6f4ef; --line: #e7e3d9; --text: #15161a; --muted: #686b73; --accent: #f0b000; --accent2: #e08600; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; }
+  img, video { max-width: 100%; display: block; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  .display { font-family: Raleway, sans-serif; letter-spacing: -.03em; }
+  .grad { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* topo */
+  header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); background: color-mix(in srgb, var(--bg) 78%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font: 800 19px/1 Raleway, sans-serif; letter-spacing: -.02em; text-decoration: none; }
+  .brand img { width: 30px; height: 30px; }
+  .brand span { font-weight: 300; color: var(--accent); }
+  nav { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 22px; border-radius: 12px; font-weight: 600; text-decoration: none; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; font: inherit; font-weight: 600; transition: transform .15s, box-shadow .15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--ink); border: 0; box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 28%, transparent); }
+  .btn.small { padding: 8px 14px; font-size: 14px; border-radius: 10px; }
+  .btn svg { width: 18px; height: 18px; }
+  .theme { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 8px; padding: 5px 9px; cursor: pointer; font: inherit; font-size: 13px; }
+
+  /* hero */
+  .hero { position: relative; padding: 72px 0 40px; }
+  .hero::before { content: ""; position: absolute; inset: -120px 0 auto; height: 720px; pointer-events: none; z-index: -1;
+    background: radial-gradient(640px 340px at 70% 10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%),
+                radial-gradient(520px 300px at 10% 30%, color-mix(in srgb, #3b82f6 12%, transparent), transparent 70%); }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .eyebrow b { color: var(--accent); font-weight: 600; }
+  h1 { font: 900 clamp(38px, 6.2vw, 68px)/1.02 Raleway, sans-serif; letter-spacing: -.04em; margin: 18px 0 18px; }
+  .lead { color: var(--muted); font-size: clamp(16px, 2vw, 19px); max-width: 560px; margin: 0; }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 30px; }
+  .trust { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; color: var(--muted); font-size: 13.5px; }
+  .trust span { display: inline-flex; align-items: center; gap: 6px; }
+  .trust svg { width: 16px; height: 16px; color: var(--ok); }
+  .phone { position: relative; justify-self: center; width: min(340px, 100%); aspect-ratio: 9 / 16; border-radius: 38px; padding: 10px; background: linear-gradient(160deg, #2b2f38, #0d0e11); box-shadow: 0 40px 90px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.08); }
+  .phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 30px; background: #14161b; }
+  .phone .tag { position: absolute; left: -26px; bottom: 60px; padding: 10px 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); font-size: 13px; box-shadow: 0 16px 40px rgba(0,0,0,.3); max-width: 200px; }
+  .phone .tag b { display: block; color: var(--accent); }
+
+  section { padding: 76px 0; }
+  .center { text-align: center; }
+  h2 { font: 800 clamp(28px, 4vw, 42px)/1.12 Raleway, sans-serif; letter-spacing: -.03em; margin: 0 0 12px; }
+  .sub { color: var(--muted); max-width: 640px; margin: 0 auto 40px; font-size: 17px; }
+  .band { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg2); padding: 22px 0; }
+  .band .wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px; color: var(--muted); font-size: 14px; }
+  .band b { color: var(--text); }
+
+  /* recurso em destaque (texto + imagem) */
+  .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 34px 0; }
+  .feature.flip .media { order: -1; }
+  .feature h3 { font: 800 28px/1.15 Raleway, sans-serif; letter-spacing: -.02em; margin: 10px 0 12px; }
+  .feature p { color: var(--muted); margin: 0 0 14px; }
+  .feature ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .feature li { display: flex; gap: 10px; font-size: 15px; }
+  .feature li::before { content: ""; flex: none; width: 18px; height: 18px; margin-top: 3px; border-radius: 50%; background: color-mix(in srgb, var(--accent) 20%, transparent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffc93c' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center / 11px no-repeat; }
+  .kicker { font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .media { border-radius: 20px; overflow: hidden; background: var(--card); border: 1px solid var(--line); box-shadow: 0 30px 70px rgba(0,0,0,.25); }
+  .anims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 10px; }
+  .anims img { border-radius: 12px; }
+  .cut-demo { padding: 22px; display: grid; gap: 10px; font-size: 14px; }
+  .cut-demo .line { display: flex; flex-wrap: wrap; gap: 6px; }
+  .w { padding: 4px 9px; border-radius: 7px; background: var(--card2); border: 1px solid var(--line); }
+  .w.x { text-decoration: line-through; color: var(--muted); border-style: dashed; opacity: .75; }
+  .w.p { background: none; border: 1px dashed var(--line); color: var(--muted); font-size: 12px; }
+  .cut-demo .res { color: var(--ok); font-weight: 600; font-size: 13px; }
+  .plug-shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 10px; background: var(--bg2); }
+  .plug-shots img { border-radius: 12px; border: 1px solid var(--line); }
+
+  /* grade de recursos */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  .f { padding: 22px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+  .f svg { width: 24px; height: 24px; color: var(--accent); }
+  .f h4 { margin: 12px 0 6px; font-size: 17px; }
+  .f p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  /* passos */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: s; }
+  .step { counter-increment: s; padding: 24px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+  .step::before { content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 800; margin-bottom: 12px; }
+  .step h4 { margin: 0 0 6px; font-size: 17px; }
+  .step p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  /* download */
+  .dl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; text-align: left; }
+  .dl { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 24px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
+  .dl.rec { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 20px 50px color-mix(in srgb, var(--accent) 12%, transparent); }
+  .dl .badge { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px; background: var(--accent); color: var(--ink); }
+  .dl .os { width: 30px; height: 30px; color: var(--accent); }
+  .dl h3 { margin: 6px 0 0; font-size: 19px; }
+  .dl p { margin: 0; color: var(--muted); font-size: 14px; flex: 1; }
+  .dl .btn { margin-top: 10px; }
+  .note { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: var(--bg2); border: 1px dashed var(--line); color: var(--muted); font-size: 14px; text-align: left; }
+
+  /* perguntas */
+  .faq { max-width: 780px; margin: 0 auto; display: grid; gap: 10px; }
+  details { border-radius: 14px; background: var(--card); border: 1px solid var(--line); padding: 0 18px; }
+  summary { cursor: pointer; padding: 16px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  summary::after { content: "+"; color: var(--accent); font-size: 20px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { margin: 0 0 16px; color: var(--muted); }
+
+  .final { text-align: center; padding: 70px 24px; border-radius: 26px; background: radial-gradient(600px 240px at 50% 0%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 70%), var(--card); border: 1px solid var(--line); }
+  footer { padding: 36px 0 60px; color: var(--muted); font-size: 13px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  @media (max-width: 900px) {
+    .hero .wrap, .feature { grid-template-columns: 1fr; }
+    .feature.flip .media { order: 0; }
+    .steps { grid-template-columns: 1fr; }
+    .phone .tag { left: 8px; }
+    nav a.hide-m { display: none; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding-top: 40px; }
+    .anims, .plug-shots { grid-template-columns: 1fr 1fr; }
+    nav { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/icon.svg" alt="">Reelify <span>Pro</span></a>
+    <nav>
+      <a href="#recursos" class="hide-m">Recursos</a>
+      <a href="#premiere" class="hide-m">Premiere</a>
+      <a href="#perguntas" class="hide-m">Perguntas</a>
+      <button class="theme" id="theme" title="Tema claro/escuro" aria-label="Trocar tema">◐</button>
+      <a class="btn primary small" href="#baixar">Baixar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow"><b>Novo</b> animações criadas pela IA para cada vídeo</span>
+        <h1>Seu vídeo <span class="grad">editado pela IA</span> em minutos.</h1>
+        <p class="lead">O Reelify Pro decupa, legenda, anima e coloca b-roll, sons e música no seu vídeo. Tudo sincronizado com o que você fala. No app para Windows e Mac ou direto no Adobe Premiere Pro.</p>
+        <div class="cta">
+          <a class="btn primary" id="heroBtn" href="#baixar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M6 11l6 6 6-6M4 21h16"/></svg><span>Baixar o Reelify Pro</span></a>
+          <a class="btn" href="#recursos">Ver o que ele faz</a>
+        </div>
+        <div class="trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Windows e Mac</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Plugin do Premiere incluso</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Usa a sua IA: Claude, ChatGPT ou Gemini</span>
+        </div>
+      </div>
+      <div class="phone">
+        <video src="assets/demo.mp4" autoplay muted loop playsinline poster="assets/anim_m0000400_0.webp" aria-label="Animações criadas pela IA para um vídeo"></video>
+        <div class="tag"><b>Feito pela IA</b>Cada animação foi criada do zero para o que o narrador fala.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band"><div class="wrap">
+    <span><b>Decupagem</b> sem cortar palavras</span><span><b>Legendas</b> animadas</span><span><b>Animações</b> sob medida</span><span><b>Tela dividida</b></span><span><b>B-roll</b> do TikTok, pasta ou banco</span><span><b>Chat</b> com a IA</span>
+  </div></div>
+
+  <section id="recursos">
+    <div class="wrap">
+      <div class="center">
+        <h2>Tudo o que leva horas, <span class="grad">num clique</span>.</h2>
+        <p class="sub">Aperte um botão ou só peça no chat: “decupa, coloca legendas amarelas e anima as partes importantes”.</p>
+      </div>
+
+      <div class="feature">
+        <div>
+          <span class="kicker">Decupagem com IA</span>
+          <h3>Tira as pausas e os erros. Sem cortar palavras no meio.</h3>
+          <p>A IA ouve a gravação, marca as tentativas erradas e mantém só a melhor. Os cortes seguem o fim real de cada palavra.</p>
+          <ul>
+            <li>Remove silêncios, respirações, gaguejadas e frases abandonadas</li>
+            <li>Mantém a última tentativa quando você repete uma frase</li>
+            <li>Vídeo e áudio sempre em sincronia, no app e no Premiere</li>
+          </ul>
+        </div>
+        <div class="media cut-demo" aria-label="Exemplo de decupagem">
+          <div class="line"><span class="w x">Eu vou</span><span class="w x">eu</span><span class="w">Eu vou te mostrar</span><span class="w p">pausa 1,2 s</span><span class="w">três erros</span></div>
+          <div class="line"><span class="w x">ééé</span><span class="w">que acabam com</span><span class="w p">respiração</span><span class="w">o seu perfil.</span></div>
+          <div class="res">✓ 4 cortes · 2,1 s removidos · nenhuma palavra cortada</div>
+        </div>
+      </div>
+
+      <div class="feature flip">
+        <div>
+          <span class="kicker">Animações sob medida</span>
+          <h3>Nada de modelo pronto: a IA cria a animação de cada ideia.</h3>
+          <p>Números viram contadores, listas entram item a item, conceitos ganham ícones desenhados. Tudo sincronizado com a palavra exata em que você fala.</p>
+          <ul>
+            <li>Animações novas para cada vídeo, feitas com Remotion</li>
+            <li>Não gostou de uma? Peça: “mais devagar”, “troca por um gráfico”</li>
+            <li>Modo tela dividida: você numa metade, as animações na outra</li>
+          </ul>
+        </div>
+        <div class="media anims">
+          <img src="assets/anim_m0000400_0.webp" alt="Animação: poucos descobrem a tempo" loading="lazy">
+          <img src="assets/anim_m0005200_1.webp" alt="Animação: calendário e gráfico de barras" loading="lazy">
+          <img src="assets/anim_m0015000_2.webp" alt="Animação: celular com lembrete" loading="lazy">
+        </div>
+      </div>
+
+      <div class="feature">
+        <div>
+          <span class="kicker">Legendas animadas</span>
+          <h3>Legendas que acompanham a fala e prendem a atenção.</h3>
+          <p>A palavra-chave fica em destaque e cada legenda entra de um jeito. Todas ficam tempo suficiente na tela para dar leitura.</p>
+          <ul>
+            <li>Estilos prontos com prévia ao vivo antes de aplicar</li>
+            <li>Tamanho, posição, cores e palavras por legenda</li>
+            <li>A legenda some sozinha quando entra uma animação</li>
+          </ul>
+        </div>
+        <div class="media"><img src="assets/legenda.webp" alt="Exemplo de legenda animada" loading="lazy"></div>
+      </div>
+
+      <div class="grid" style="margin-top:30px">
+        <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg><h4>B-roll automático</h4><p>De uma pasta sua, de links (orgânicos do TikTok, YouTube, Instagram) ou do banco de vídeos. A IA escolhe o momento e o material.</p></div>
+        <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><h4>Sons e música</h4><p>Efeitos sonoros nos momentos certos e trilha de fundo que abaixa sozinha quando você fala.</p></div>
+        <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M11 8v6M8 11h6"/></svg><h4>Zoom e transições</h4><p>Dinâmica nos cortes: zoom de impacto, aproximação suave e transições com whoosh.</p></div>
+        <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><h4>Chat com a IA</h4><p>Converse e peça mudanças em português. A IA usa as ferramentas por você.</p></div>
+        <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><h4>Edição automática</h4><p>Marque as etapas e a IA faz tudo em ordem: decupa, anima, legenda, coloca sons e zoom.</p></div>
+        <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><h4>Gasto sob controle</h4><p>Veja quanto a IA usou hoje e defina limites diários de gasto e de pedidos para cada IA conectada.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="premiere" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="feature">
+        <div>
+          <span class="kicker">Reelify Plug</span>
+          <h3>Tudo isso dentro do Adobe Premiere Pro.</h3>
+          <p>O plugin vem junto com o app. Abra a sua sequência e use os mesmos botões, o chat e as prévias, direto na sua timeline.</p>
+          <ul>
+            <li>Premiere Pro 2022 ou mais novo</li>
+            <li>Cada coisa em trilhas próprias, fácil de ajustar ou remover</li>
+            <li>Prévia das animações com “refazer” e troca automática na sequência</li>
+          </ul>
+        </div>
+        <div class="media plug-shots">
+          <img src="assets/plug_1_home.webp" alt="Reelify Plug: ferramentas" loading="lazy">
+          <img src="assets/plug_2_legendas.webp" alt="Reelify Plug: legendas com prévia" loading="lazy">
+          <img src="assets/plug_3_chat.webp" alt="Reelify Plug: chat com a IA" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="center"><h2>Como funciona</h2><p class="sub">Da gravação ao vídeo pronto em três passos.</p></div>
+      <div class="steps">
+        <div class="step"><h4>Instale</h4><p>Baixe o Reelify Pro. O instalador já coloca o plugin do Premiere e tudo o que ele precisa.</p></div>
+        <div class="step"><h4>Conecte a sua IA</h4><p>Entre com a sua conta do Claude, ChatGPT ou Gemini (ou use uma chave de API).</p></div>
+        <div class="step"><h4>Edite com um clique</h4><p>Abra o vídeo no app ou no Premiere, aperte <b>Edição automática</b> ou peça no chat.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="baixar">
+    <div class="wrap center">
+      <h2>Baixe o <span class="grad">Reelify Pro</span></h2>
+      <p class="sub">Escolha o seu sistema. O plugin do Premiere vem junto.</p>
+      <div class="dl-grid">
+        <div class="dl" data-os="win">
+          <svg class="os" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.5v7H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>
+          <h3>Windows</h3>
+          <p>Windows 10 ou 11 (64 bits). Instalador com assistente: o plugin do Premiere e o reconhecimento de fala entram juntos.</p>
+          <a class="btn primary" href="https://github.com/Abraha212/Pagina-de-vendad-Reelify/releases/latest/download/Reelify-Pro-Setup.exe">Baixar para Windows</a>
+        </div>
+        <div class="dl" data-os="mac-arm">
+          <svg class="os" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.8-.8-3-.8C6.9 7.2 5.4 8.1 4.6 9.6c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 3 2.4 1.2-.1 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.2 2.8-2.3.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.7-4zM14.2 5.4c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.5 2.8-1.3z"/></svg>
+          <h3>Mac com Apple Silicon</h3>
+          <p>M1, M2, M3, M4 ou mais novo. Arraste para Aplicativos; o plugin do Premiere é instalado na primeira abertura.</p>
+          <a class="btn primary" href="https://github.com/Abraha212/Pagina-de-vendad-Reelify/releases/latest/download/Reelify-Pro-mac-arm64.dmg">Baixar para Mac (M1+)</a>
+        </div>
+        <div class="dl" data-os="mac-intel">
+          <svg class="os" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.8-.8-3-.8C6.9 7.2 5.4 8.1 4.6 9.6c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 3 2.4 1.2-.1 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.2 2.8-2.3.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.7-4zM14.2 5.4c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.5 2.8-1.3z"/></svg>
+          <h3>Mac com Intel</h3>
+          <p>Para Macs com processador Intel. Mesma instalação: arraste para Aplicativos e abra.</p>
+          <a class="btn" href="https://github.com/Abraha212/Pagina-de-vendad-Reelify/releases/latest/download/Reelify-Pro-mac-x64.dmg">Baixar para Mac (Intel)</a>
+        </div>
+      </div>
+      <p class="note"><b>Já tem o app e só quer o plugin do Premiere?</b> <a href="https://github.com/Abraha212/Pagina-de-vendad-Reelify/releases/latest/download/Reelify-Plug.zip">Baixe o Reelify Plug avulso</a> (vem com instalador de 1 clique para Windows e Mac).<br>
+      <b>No Mac, na primeira vez:</b> se aparecer “não é possível verificar o desenvolvedor”, clique com o botão direito no Reelify Pro em Aplicativos › Abrir › Abrir.</p>
+    </div>
+  </section>
+
+  <section id="perguntas">
+    <div class="wrap">
+      <div class="center"><h2>Perguntas frequentes</h2></div>
+      <div class="faq">
+        <details><summary>Preciso pagar uma IA à parte?</summary><p>O Reelify usa a IA que você já tem: entre com a sua conta do Claude, ChatGPT ou Gemini, ou use uma chave de API. No app você vê quanto a IA usou no dia e pode definir limites diários de gasto e de pedidos.</p></details>
+        <details><summary>Funciona no Mac?</summary><p>Sim: há versões para Mac com Apple Silicon (M1 ou mais novo) e para Mac com Intel.</p></details>
+        <details><summary>Quais versões do Premiere são compatíveis?</summary><p>Adobe Premiere Pro 2022 ou mais novo. Depois de instalar, abra em Janela › Extensões › Reelify Plug.</p></details>
+        <details><summary>Preciso saber editar?</summary><p>Não. Aperte Edição automática ou peça no chat o que quer. Quem já edita ganha tempo e ajusta tudo na timeline, já que cada coisa fica numa trilha própria.</p></details>
+        <details><summary>Meus vídeos são enviados para algum lugar?</summary><p>Não. O vídeo é processado no seu computador. Para a IA vai só o que ela precisa para decidir: o texto da fala e, no caso do b-roll, miniaturas dos materiais.</p></details>
+        <details><summary>O app baixa algo depois de instalado?</summary><p>No Windows, o instalador já baixa o reconhecimento de fala (cerca de 1,5 GB, uma vez só). No Mac, isso acontece na primeira abertura.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div class="final">
+        <h2>Pare de perder horas editando.</h2>
+        <p class="sub" style="margin-bottom:28px">Instale o Reelify Pro e deixe a IA fazer a parte chata.</p>
+        <a class="btn primary" id="finalBtn" href="#baixar">Baixar o Reelify Pro</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Reelify Pro</span><span><a href="#baixar">Downloads</a> · <a href="https://github.com/Abraha212/Pagina-de-vendad-Reelify/releases">Todas as versões</a></span></div></footer>
+
+<script>
+  // aponta os botões principais para o download do sistema de quem está visitando
+  (function () {
+    const ua = navigator.userAgent, plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+    let os = /Win/i.test(plat + ua) ? "win" : /Mac/i.test(plat + ua) && !/iPhone|iPad/i.test(ua) ? "mac" : null;
+    if (os === "mac") {
+      let arm = true;
+      try {
+        const gl = document.createElement("canvas").getContext("webgl");
+        const r = gl && gl.getExtension("WEBGL_debug_renderer_info");
+        arm = !/Intel/i.test(r ? gl.getParameter(r.UNMASKED_RENDERER_WEBGL) : "");
+      } catch (e) { /* assume Apple Silicon */ }
+      os = arm ? "mac-arm" : "mac-intel";
+    }
+    const card = os && document.querySelector(`[data-os="${os}"]`);
+    if (card) {
+      card.classList.add("rec");
+      const b = document.createElement("span");
+      b.className = "badge"; b.textContent = "Para o seu computador";
+      card.appendChild(b);
+      const a = card.querySelector("a.btn");
+      for (const id of ["heroBtn", "finalBtn"]) {
+        const el = document.getElementById(id);
+        el.href = a.href;
+        (el.querySelector("span") || el).textContent = a.textContent;
+      }
+    }
+    // tema claro/escuro (lembra a escolha)
+    const root = document.documentElement, KEY = "reelify-theme";
+    try { const t = localStorage.getItem(KEY); if (t) root.dataset.theme = t; } catch (e) {}
+    document.getElementById("theme").addEventListener("click", () => {
+      const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      root.dataset.theme = dark ? "light" : "dark";
+      try { localStorage.setItem(KEY, root.dataset.theme); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
